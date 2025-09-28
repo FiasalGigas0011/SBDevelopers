@@ -1,0 +1,127 @@
+﻿@model RealEstatePay.Models.PaymentModel
+@{
+    ViewBag.Title = "Dashboard";
+}
+
+<style>
+    .dashboard-container {
+        max-width: 500px;
+        margin: 40px auto;
+        padding: 30px 25px;
+        background: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        color: white;
+    }
+
+        .dashboard-container h2 {
+            text-align: center;
+            margin-bottom: 25px;
+            font-weight: 700;
+            color: #c49a6c;
+        }
+
+        .dashboard-container img {
+            max-width: 180px;
+            display: block;
+            margin: 0 auto 20px;
+        }
+
+    form input {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 18px;
+        font-size: 1rem;
+        border: 1px solid #444;
+        border-radius: 6px;
+        background: #2a2a2a;
+        color: white;
+    }
+
+        form input:focus {
+            border-color: #c49a6c;
+            outline: none;
+            box-shadow: 0 0 8px rgba(196, 154, 108, 0.5);
+        }
+
+    form button {
+        width: 100%;
+        padding: 14px 0;
+        font-size: 1.1rem;
+        background: linear-gradient(to right, #c49a6c, #b07d45);
+        color: white;
+        border: none;
+        border-radius: 8px;
+        font-weight: 600;
+        cursor: pointer;
+    }
+
+        form button:hover {
+            opacity: 0.9;
+        }
+
+    .message {
+        margin-top: 15px;
+        font-weight: 600;
+        text-align: center;
+    }
+
+        .message.success {
+            color: #28a745;
+        }
+
+        .message.error {
+            color: #ff4c4c;
+        }
+
+    .logout-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-bottom: 20px;
+    }
+
+        .logout-container form button {
+            background-color: #dc3545;
+            width: auto;
+            padding: 8px 18px;
+            font-size: 1rem;
+            border-radius: 6px;
+            border: none;
+            cursor: pointer;
+            color: white;
+        }
+
+            .logout-container form button:hover {
+                background-color: #a71d2a;
+            }
+</style>
+
+<div class="dashboard-container">
+    <div class="logout-container">
+        <form method="post" asp-controller="PayAcknowledgement" asp-action="Logout">
+            <button type="submit">Logout</button>
+        </form>
+    </div>
+
+    <img src="~/images/SKdevelopers.png" alt="SK Developers Logo" />
+    <h2>Enter Payment Details</h2>
+
+    <form method="post" autocomplete="off">
+        <input asp-for="PlotNumber" placeholder="Enter Plot No" required />
+        <input asp-for="CustomerName" placeholder="Enter Customer Name" required />
+        <input asp-for="AmountPaid" type="number" min="0" step="any" placeholder="Enter Amount Paid" required />
+        <input asp-for="RemainingAmount" type="number" min="0" step="any" placeholder="Enter Remaining Amount" required />
+        <input asp-for="ContactNumber" placeholder="Enter Contact Number" required />
+        <button type="submit">Submit</button>
+    </form>
+
+    @if (ViewBag.Message != null)
+    {
+        <p class="message success">@ViewBag.Message</p>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <p class="message error">@ViewBag.Error</p>
+    }
+</div>
