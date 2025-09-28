@@ -106,14 +106,18 @@
     <img src="~/images/SKdevelopers.png" alt="SK Developers Logo" />
     <h2>Enter Payment Details</h2>
 
-    <form method="post" autocomplete="off">
-        <input asp-for="PlotNumber" placeholder="Enter Plot No" required />
-        <input asp-for="CustomerName" placeholder="Enter Customer Name" required />
-        <input asp-for="AmountPaid" type="number" min="0" step="any" placeholder="Enter Amount Paid" required />
-        <input asp-for="RemainingAmount" type="number" min="0" step="any" placeholder="Enter Remaining Amount" required />
-        <input asp-for="ContactNumber" placeholder="Enter Contact Number" required />
-        <button type="submit">Submit</button>
-    </form>
+   <form asp-action="Dashboard" method="post">
+    <input type="text" name="CustomerName" placeholder="Customer Name" />
+    <input type="text" name="PlotNumber" placeholder="Plot Number (Optional)" />
+    <input type="text" name="SiteOrLayoutName" placeholder="Site/Layout Name (Optional)" />
+    <input type="text" name="LayoutNumber" placeholder="Layout Number (Optional)" />
+   @*  <input type="text" name="Revenue" placeholder="Revenue (BK to SB Dev)" /> *@
+    <input type="text" name="ContactNumber" placeholder="Contact Number" required />
+    <input type="text" name="Message" placeholder="Message (Optional)" />
+    <input type="number" name="AmountPaid" placeholder="Amount Paid" required />
+    <button type="submit">Send SMS</button>
+</form>
+
 
     @if (ViewBag.Message != null)
     {

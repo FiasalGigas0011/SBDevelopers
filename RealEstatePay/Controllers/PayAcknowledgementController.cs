@@ -47,7 +47,7 @@ namespace RealEstatePay.Controllers
                 var message = MessageResource.Create(
                     to: new PhoneNumber(model.ContactNumber),
                     from: new PhoneNumber("+19707167566"),
-                    body: $"Hello {model.CustomerName}, you have paid ₹{model.AmountPaid} for Plot {model.PlotNumber} on {DateTime.Now:dd-MM-yyyy HH:mm} successfully."
+                    body: $"Hello {model.CustomerName}, you have paid ₹{model.AmountPaid} for Plot {model.PlotNumber} {model.SiteOrLayoutName} {model.LayoutNumber} on {DateTime.Now:dd-MM-yyyy HH:mm} to Shakil Babu Developers successfully."
                 );
 
                 ViewBag.Message = "SMS sent successfully!";
