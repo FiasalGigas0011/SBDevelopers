@@ -1,5 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using RealEstatePay.Models;
+using System.Text;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
@@ -30,7 +32,7 @@ namespace RealEstatePay.Controllers
         }
 
         [HttpPost]
-        public IActionResult Dashboard(PaymentModel model)
+        public async Task<IActionResult> Dashboard(PaymentModel model)
         {
             if (!ModelState.IsValid)
             {
@@ -40,24 +42,53 @@ namespace RealEstatePay.Controllers
 
             try
             {
-                string accountSid = "ACb834b71b683a6d176c41709649cb2042";
-                string authToken = "7d505753987ad80e15ddef6199d8d9af";
-                TwilioClient.Init(accountSid, authToken);
+                // Call external API (await the Task<HttpResponseMessage>)
+                var apiResponse = await SendSmsToApi(model.ContactNumber, $"Hello {model.CustomerName}, you have paid ₹{model.AmountPaid} for Plot {model.PlotNumber} {model.SiteOrLayoutName} {model.LayoutNumber} on {DateTime.Now:dd-MM-yyyy HH:mm} to Shakil Babu Developers successfully.");
 
-                var message = MessageResource.Create(
-                    to: new PhoneNumber(model.ContactNumber),
-                    from: new PhoneNumber("+19707167566"),
-                    body: $"Hello {model.CustomerName}, you have paid ₹{model.AmountPaid} for Plot {model.PlotNumber} {model.SiteOrLayoutName} {model.LayoutNumber} on {DateTime.Now:dd-MM-yyyy HH:mm} to Shakil Babu Developers successfully."
-                );
-
-                ViewBag.Message = "SMS sent successfully!";
+                // Check the response status after awaiting the task
+                if (apiResponse.IsSuccessStatusCode)
+                {
+                    ViewBag.Message = "SMS sent successfully via external API!";
+                }
+                else
+                {
+                    ViewBag.Error = "Failed to send SMS through external API.";
+                }
             }
             catch (Exception ex)
             {
-                ViewBag.Error = "Failed to send SMS: " + ex.Message;
+                ViewBag.Error = "An error occurred while calling the external API: " + ex.Message;
             }
 
             return View(model);
+        }
+
+        // Helper method to send SMS using the external API
+        private async Task<HttpResponseMessage> SendSmsToApi(string phoneNumber, string message)
+        {
+            using (var client = new HttpClient())
+            {
+                // Set up the request headers (no Content-Type here)
+                client.DefaultRequestHeaders.Add("accept", "*/*");
+
+                // Create the JSON request body
+                var requestBody = new
+                {
+                    phoneNumber = phoneNumber,
+                    message = message
+                };
+
+                var content = new StringContent(
+                    JsonConvert.SerializeObject(requestBody),
+                    Encoding.UTF8,
+                    "application/json" // This sets the Content-Type properly
+                );
+
+                // Send the POST request
+                var response = await client.PostAsync("https://api.mybitproperty.com/api/Payment/send-sms", content);
+
+                return response;
+            }
         }
 
         [HttpPost]
