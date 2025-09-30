@@ -43,7 +43,7 @@ namespace RealEstatePay.Controllers
             try
             {
                 // Call external API (await the Task<HttpResponseMessage>)
-                var apiResponse = await SendSmsToApi(model.ContactNumber, $"Hello {model.CustomerName}, you have paid ₹{model.AmountPaid} for Plot {model.PlotNumber} {model.SiteOrLayoutName} {model.LayoutNumber} on {DateTime.Now:dd-MM-yyyy HH:mm} to Shakil Babu Developers successfully.");
+                var apiResponse = await SendSmsToApi(model.ContactNumber, $"Hello {model.CustomerName}, you have paid {model.AmountPaid} Rs. for Plot {model.PlotNumber} {model.SiteOrLayoutName} {model.LayoutNumber} on {DateTime.Now:dd-MM-yyyy HH:mm} to Shakil Babu Developers successfully.");
 
                 // Check the response status after awaiting the task
                 if (apiResponse.IsSuccessStatusCode)
