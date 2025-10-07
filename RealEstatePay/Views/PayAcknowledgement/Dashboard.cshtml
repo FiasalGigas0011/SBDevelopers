@@ -94,6 +94,25 @@
             .logout-container form button:hover {
                 background-color: #a71d2a;
             }
+
+    form select {
+        width: 100%;
+        padding: 12px 15px;
+        margin-bottom: 18px;
+        font-size: 1rem;
+        border: 1px solid #444;
+        border-radius: 6px;
+        background: #2a2a2a;
+        color: white;
+        appearance: none; /* Removes default arrow styling */
+    }
+
+        form select:focus {
+            border-color: #c49a6c;
+            outline: none;
+            box-shadow: 0 0 8px rgba(196, 154, 108, 0.5);
+        }
+
 </style>
 
 <div class="dashboard-container">
@@ -109,7 +128,15 @@
    <form asp-action="Dashboard" method="post">
     <input type="text" name="CustomerName" placeholder="Customer Name" />
     <input type="text" name="PlotNumber" placeholder="Plot Number (Optional)" />
-    <input type="text" name="SiteOrLayoutName" placeholder="Site/Layout Name (Optional)" />
+    <select name="SiteOrLayoutName" required>
+        <option value="">-- Select Site/Layout Name --</option>
+            <option value="Godhani">Godhani</option>
+            <option value="lonara">lonara</option>
+            <option value="Bailwada">Bailwada</option>
+            <option value="Bokhara and chakkikhapa">Bokhara and chakkikhapa</option>
+            <option value="Bhartwada">Bhartwada</option>
+    </select>
+    @* <input type="text" name="SiteOrLayoutName" placeholder="Site/Layout Name (Optional)" /> *@
     <input type="text" name="LayoutNumber" placeholder="Layout Number (Optional)" />
    @*  <input type="text" name="Revenue" placeholder="Revenue (BK to SB Dev)" /> *@
     <input type="text" name="ContactNumber" placeholder="Contact Number" required />
