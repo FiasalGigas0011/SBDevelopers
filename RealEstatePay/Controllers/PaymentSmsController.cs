@@ -1,20 +1,22 @@
-﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Options;
 using RealEstatePay.Models;
-using RealEstatePay.Services;
+using RealEstatePay.Services.Interface;
 using System.Diagnostics;
 
 namespace RealEstatePay.Controllers
 {
     public class PaymentSmsController : Controller
     {
-        private readonly IConfiguration _configuration;
+        private readonly AppSettings _appSettings;
         private readonly IPaymentSmsService _paymentSmsService;
 
-        public PaymentSmsController(IConfiguration configuration, IPaymentSmsService paymentSmsService)
+        public PaymentSmsController(IOptionsMonitor<AppSettings> appSettings, IPaymentSmsService paymentSmsService)
         {
-            _configuration = configuration;
+            _appSettings = appSettings.CurrentValue;
             _paymentSmsService = paymentSmsService;
         }
+
         public IActionResult Login()
         {
             return View();
@@ -23,14 +25,13 @@ namespace RealEstatePay.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-
-            if (username == _configuration["AppSettings:AdminUsername"] && password == _configuration["AppSettings:AdminPassword"])
+            if (username == _appSettings.AdminUsername && password == _appSettings.AdminPassword)
             {
                 HttpContext.Session.SetString("IsLoggedIn", "true");
                 return RedirectToAction("Dashboard");
             }
 
-            ViewBag.Error = _configuration["AppSettings:LoginErrorMessage"];
+            ViewBag.Error = _appSettings.LoginErrorMessage;
             return View();
         }
 
@@ -46,29 +47,26 @@ namespace RealEstatePay.Controllers
         {
             if (HttpContext.Session.GetString("IsLoggedIn") != "true")
                 return RedirectToAction("Login");
-                
+
             if (!ModelState.IsValid)
             {
-                ViewBag.Error = _configuration["AppSettings:ValidationErrorMessage"];
+                ViewBag.Error = _appSettings.ValidationErrorMessage;
                 return View(model);
             }
 
             var success = await _paymentSmsService.SendSmsAsync(model);
-            
+
             if (success)
             {
-                ViewBag.Message = _configuration["AppSettings:SmsSuccessMessage"];
+                ViewBag.Message = _appSettings.SmsSuccessMessage;
             }
             else
             {
-                ViewBag.Error = _configuration["AppSettings:SmsFailureMessage"];
+                ViewBag.Error = _appSettings.SmsFailureMessage;
             }
 
             return View(model);
         }
-
-
-
 
         [HttpPost]
         public IActionResult Logout()
@@ -85,12 +83,12 @@ namespace RealEstatePay.Controllers
             try
             {
                 var (contacts, totalPages, hasPrevious, hasNext) = await _paymentSmsService.GetContactsAsync(page);
-                
+
                 ViewBag.CurrentPage = page;
                 ViewBag.TotalPages = totalPages;
                 ViewBag.HasPrevious = hasPrevious;
                 ViewBag.HasNext = hasNext;
-                
+
                 return View(contacts);
             }
             catch (Exception ex)

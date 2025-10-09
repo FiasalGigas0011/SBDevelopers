@@ -149,17 +149,11 @@
     }
 </div>
 
+@inject RealEstatePay.Services.Interface.IDateTimeService DateTimeService
+
 @functions {
     string GetDateDisplay(DateTime createdAt)
     {
-        var istToday = DateTime.Now.AddHours(12).AddMinutes(30).Date;
-        var contactDate = createdAt.Date;
-        
-        if (contactDate == istToday)
-            return "Today";
-        else if (contactDate == istToday.AddDays(-1))
-            return "Yesterday";
-        else
-            return contactDate.ToString("dd-MM-yyyy");
+        return DateTimeService.GetDateDisplay(createdAt);
     }
 }

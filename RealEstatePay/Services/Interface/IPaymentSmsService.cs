@@ -1,6 +1,6 @@
 using RealEstatePay.Models;
 
-namespace RealEstatePay.Services
+namespace RealEstatePay.Services.Interface
 {
     public interface IPaymentSmsService
     {
