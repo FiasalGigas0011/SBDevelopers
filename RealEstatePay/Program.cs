@@ -3,6 +3,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
+builder.Services.AddScoped<RealEstatePay.Services.IPaymentSmsService, RealEstatePay.Services.PaymentSmsService>();
 
 var app = builder.Build();
 

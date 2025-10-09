@@ -1,18 +1,19 @@
 ﻿using Microsoft.AspNetCore.Mvc;
-using Newtonsoft.Json;
 using RealEstatePay.Models;
+using RealEstatePay.Services;
 using System.Diagnostics;
-using System.Text;
 
 namespace RealEstatePay.Controllers
 {
     public class PaymentSmsController : Controller
     {
         private readonly IConfiguration _configuration;
+        private readonly IPaymentSmsService _paymentSmsService;
 
-        public PaymentSmsController(IConfiguration configuration)
+        public PaymentSmsController(IConfiguration configuration, IPaymentSmsService paymentSmsService)
         {
             _configuration = configuration;
+            _paymentSmsService = paymentSmsService;
         }
         public IActionResult Login()
         {
@@ -52,56 +53,22 @@ namespace RealEstatePay.Controllers
                 return View(model);
             }
 
-            try
+            var success = await _paymentSmsService.SendSmsAsync(model);
+            
+            if (success)
             {
-
-                var apiResponse = await SendSmsToApi(model.ContactNumber, $"Hello {model.CustomerName}, you have paid {model.AmountPaid} Rs. for Plot {model.PlotNumber} {model.SiteOrLayoutName} {model.LayoutNumber} on {DateTime.Now:dd-MM-yyyy HH:mm} to {_configuration["AppSettings:CompanyName"]} successfully.");
-
-
-                if (apiResponse.IsSuccessStatusCode)
-                {
-                    ViewBag.Message = _configuration["AppSettings:SmsSuccessMessage"];
-                }
-                else
-                {
-                    ViewBag.Error = _configuration["AppSettings:SmsFailureMessage"];
-                }
+                ViewBag.Message = _configuration["AppSettings:SmsSuccessMessage"];
             }
-            catch (Exception ex)
+            else
             {
-                ViewBag.Error = _configuration["AppSettings:ApiErrorMessage"] + ex.Message;
+                ViewBag.Error = _configuration["AppSettings:SmsFailureMessage"];
             }
 
             return View(model);
         }
 
 
-        private async Task<HttpResponseMessage> SendSmsToApi(string phoneNumber, string message)
-        {
-            using (var client = new HttpClient())
-            {
 
-                client.DefaultRequestHeaders.Add("accept", "*/*");
-
-
-                var requestBody = new
-                {
-                    phoneNumber = phoneNumber,
-                    message = message
-                };
-
-                var content = new StringContent(
-                    JsonConvert.SerializeObject(requestBody),
-                    Encoding.UTF8,
-                    "application/json"
-                );
-
-
-                var response = await client.PostAsync(_configuration["AppSettings:SmsApiUrl"], content);
-
-                return response;
-            }
-        }
 
         [HttpPost]
         public IActionResult Logout()
@@ -117,46 +84,20 @@ namespace RealEstatePay.Controllers
 
             try
             {
-                using (var client = new HttpClient())
-                {
-                    client.DefaultRequestHeaders.Add("accept", "*/*");
-                    var response = await client.GetAsync("https://api.mybitproperty.com/api/Payment/get-contacts");
-                    
-                    if (response.IsSuccessStatusCode)
-                    {
-                        var jsonContent = await response.Content.ReadAsStringAsync();
-                        var allContacts = JsonConvert.DeserializeObject<List<ContactModel>>(jsonContent);
-                        
-                        // Convert to IST by adding 12 hours 30 minutes
-                        foreach (var contact in allContacts)
-                        {
-                            contact.CreatedAt = contact.CreatedAt.AddHours(12).AddMinutes(30);
-                        }
-                        
-                        const int pageSize = 10;
-                        var totalContacts = allContacts.Count;
-                        var totalPages = (int)Math.Ceiling((double)totalContacts / pageSize);
-                        
-                        var contacts = allContacts
-                            .Skip((page - 1) * pageSize)
-                            .Take(pageSize)
-                            .ToList();
-                        
-                        ViewBag.CurrentPage = page;
-                        ViewBag.TotalPages = totalPages;
-                        ViewBag.HasPrevious = page > 1;
-                        ViewBag.HasNext = page < totalPages;
-                        
-                        return View(contacts);
-                    }
-                }
+                var (contacts, totalPages, hasPrevious, hasNext) = await _paymentSmsService.GetContactsAsync(page);
+                
+                ViewBag.CurrentPage = page;
+                ViewBag.TotalPages = totalPages;
+                ViewBag.HasPrevious = hasPrevious;
+                ViewBag.HasNext = hasNext;
+                
+                return View(contacts);
             }
             catch (Exception ex)
             {
                 ViewBag.Error = "Failed to load contacts: " + ex.Message;
+                return View(new List<ContactModel>());
             }
-
-            return View(new List<ContactModel>());
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
