@@ -110,6 +110,34 @@ namespace RealEstatePay.Controllers
             return RedirectToAction("Login");
         }
 
+        public async Task<IActionResult> Contacts()
+        {
+            if (HttpContext.Session.GetString("IsLoggedIn") != "true")
+                return RedirectToAction("Login");
+
+            try
+            {
+                using (var client = new HttpClient())
+                {
+                    client.DefaultRequestHeaders.Add("accept", "*/*");
+                    var response = await client.GetAsync("https://api.mybitproperty.com/api/Payment/get-contacts");
+                    
+                    if (response.IsSuccessStatusCode)
+                    {
+                        var jsonContent = await response.Content.ReadAsStringAsync();
+                        var contacts = JsonConvert.DeserializeObject<List<ContactModel>>(jsonContent);
+                        return View(contacts);
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ViewBag.Error = "Failed to load contacts: " + ex.Message;
+            }
+
+            return View(new List<ContactModel>());
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

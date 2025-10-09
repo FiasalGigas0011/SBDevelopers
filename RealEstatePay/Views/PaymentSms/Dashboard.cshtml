@@ -76,7 +76,7 @@
 
     .logout-container {
         display: flex;
-        justify-content: flex-end;
+        justify-content: space-between;
         margin-bottom: 20px;
     }
 
@@ -94,6 +94,21 @@
             .logout-container form button:hover {
                 background-color: #a71d2a;
             }
+
+    .three-dots-btn {
+        background-color: #c49a6c;
+        color: white;
+        padding: 8px 12px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 1.2rem;
+        display: inline-block;
+    }
+
+        .three-dots-btn:hover {
+            background-color: #b07d45;
+            color: white;
+        }
 
     form select {
         width: 100%;
@@ -117,6 +132,7 @@
 
 <div class="dashboard-container">
     <div class="logout-container">
+        <a href="@Url.Action("Contacts", "PaymentSms")" class="three-dots-btn">⋯</a>
         <form method="post" asp-controller="PaymentSms" asp-action="Logout">
             <button type="submit">Logout</button>
         </form>

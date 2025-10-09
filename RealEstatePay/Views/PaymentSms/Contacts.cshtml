@@ -1,0 +1,124 @@
+@model List<RealEstatePay.Models.ContactModel>
+@{
+    ViewData["Title"] = "Contacts";
+}
+
+<style>
+    .contacts-container {
+        max-width: 800px;
+        margin: 20px auto;
+        padding: 30px 25px;
+        background: #1e1e1e;
+        border-radius: 12px;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+        color: white;
+    }
+
+    .contacts-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 25px;
+    }
+
+    .contacts-header h2 {
+        color: #c49a6c;
+        margin: 0;
+    }
+
+    .back-btn {
+        background-color: #6c757d;
+        color: white;
+        padding: 8px 16px;
+        border-radius: 6px;
+        text-decoration: none;
+        font-size: 0.9rem;
+    }
+
+    .back-btn:hover {
+        background-color: #5a6268;
+        color: white;
+    }
+
+    .contact-item {
+        background: #2a2a2a;
+        padding: 15px;
+        margin-bottom: 15px;
+        border-radius: 8px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    .contact-phone {
+        font-weight: 600;
+        color: #f1f1f1;
+        font-size: 1.1rem;
+    }
+
+    .contact-status {
+        font-size: 0.9rem;
+        padding: 5px 12px;
+        border-radius: 15px;
+        font-weight: 500;
+    }
+
+    .status-sent {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .status-sending {
+        background-color: #ffc107;
+        color: #212529;
+    }
+
+    .no-contacts {
+        text-align: center;
+        color: #aaa;
+        font-style: italic;
+        padding: 40px 0;
+    }
+
+    .error-message {
+        color: #ff4c4c;
+        text-align: center;
+        margin-bottom: 20px;
+    }
+</style>
+
+<div class="contacts-container">
+    <div class="contacts-header">
+        <h2>SMS Contacts</h2>
+        <a href="@Url.Action("Dashboard", "PaymentSms")" class="back-btn">← Back</a>
+    </div>
+
+    @if (ViewBag.Error != null)
+    {
+        <div class="error-message">@ViewBag.Error</div>
+    }
+
+    @if (Model != null && Model.Any())
+    {
+        @foreach (var contact in Model)
+        {
+            <div class="contact-item">
+                <div class="contact-phone">@contact.PhoneNumber</div>
+                <div class="contact-status @(contact.Tag ? "status-sent" : "status-sending")">
+                    @if (contact.Tag)
+                    {
+                        <span>Sent</span>
+                    }
+                    else
+                    {
+                        <span>Sending<span class="dots">...</span></span>
+                    }
+                </div>
+            </div>
+        }
+    }
+    else
+    {
+        <div class="no-contacts">No contacts found</div>
+    }
+</div>
