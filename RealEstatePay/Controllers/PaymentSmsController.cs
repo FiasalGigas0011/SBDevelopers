@@ -17,11 +17,11 @@ namespace RealEstatePay.Controllers
         [HttpPost]
         public IActionResult Login(string username, string password)
         {
-            // Simple hardcoded login logic
+
             if (username == "admin" && password == "admin")
                 return RedirectToAction("Dashboard");
 
-            ViewBag.Error = "Invalid login";
+            ViewBag.Error = "Invalid username or password";
             return View();
         }
 
@@ -64,10 +64,7 @@ namespace RealEstatePay.Controllers
         [HttpPost]
         public IActionResult Logout()
         {
-            //HttpContext.Session.Clear(); // if using session
-                                         // Or sign out if using authentication schemes
-
-            return RedirectToAction("Login", "PaymentSms"); // Redirect to login page
+            return RedirectToAction("Login", "PaymentSms");
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
