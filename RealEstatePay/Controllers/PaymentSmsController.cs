@@ -110,7 +110,7 @@ namespace RealEstatePay.Controllers
             return RedirectToAction("Login");
         }
 
-        public async Task<IActionResult> Contacts()
+        public async Task<IActionResult> Contacts(int page = 1)
         {
             if (HttpContext.Session.GetString("IsLoggedIn") != "true")
                 return RedirectToAction("Login");
@@ -125,7 +125,28 @@ namespace RealEstatePay.Controllers
                     if (response.IsSuccessStatusCode)
                     {
                         var jsonContent = await response.Content.ReadAsStringAsync();
-                        var contacts = JsonConvert.DeserializeObject<List<ContactModel>>(jsonContent);
+                        var allContacts = JsonConvert.DeserializeObject<List<ContactModel>>(jsonContent);
+                        
+                        // Convert to IST by adding 12 hours 30 minutes
+                        foreach (var contact in allContacts)
+                        {
+                            contact.CreatedAt = contact.CreatedAt.AddHours(12).AddMinutes(30);
+                        }
+                        
+                        const int pageSize = 10;
+                        var totalContacts = allContacts.Count;
+                        var totalPages = (int)Math.Ceiling((double)totalContacts / pageSize);
+                        
+                        var contacts = allContacts
+                            .Skip((page - 1) * pageSize)
+                            .Take(pageSize)
+                            .ToList();
+                        
+                        ViewBag.CurrentPage = page;
+                        ViewBag.TotalPages = totalPages;
+                        ViewBag.HasPrevious = page > 1;
+                        ViewBag.HasNext = page < totalPages;
+                        
                         return View(contacts);
                     }
                 }

@@ -104,6 +104,7 @@
         {
             <div class="contact-item">
                 <div class="contact-phone">@contact.PhoneNumber</div>
+                <div class="contact-date">@GetDateDisplay(contact.CreatedAt)</div>
                 <div class="contact-status @(contact.Tag ? "status-sent" : "status-sending")">
                     @if (contact.Tag)
                     {
@@ -116,9 +117,49 @@
                 </div>
             </div>
         }
+        
+        @if (ViewBag.TotalPages > 1)
+        {
+            <div class="pagination">
+                @if (ViewBag.HasPrevious)
+                {
+                    <a href="@Url.Action("Contacts", new { page = ViewBag.CurrentPage - 1 })">← Previous</a>
+                }
+                else
+                {
+                    <span class="disabled">← Previous</span>
+                }
+                
+                <span class="current">Page @ViewBag.CurrentPage of @ViewBag.TotalPages</span>
+                
+                @if (ViewBag.HasNext)
+                {
+                    <a href="@Url.Action("Contacts", new { page = ViewBag.CurrentPage + 1 })">Next →</a>
+                }
+                else
+                {
+                    <span class="disabled">Next →</span>
+                }
+            </div>
+        }
     }
     else
     {
         <div class="no-contacts">No contacts found</div>
     }
 </div>
+
+@functions {
+    string GetDateDisplay(DateTime createdAt)
+    {
+        var istToday = DateTime.Now.AddHours(12).AddMinutes(30).Date;
+        var contactDate = createdAt.Date;
+        
+        if (contactDate == istToday)
+            return "Today";
+        else if (contactDate == istToday.AddDays(-1))
+            return "Yesterday";
+        else
+            return contactDate.ToString("dd-MM-yyyy");
+    }
+}
