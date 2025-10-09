@@ -1,12 +1,13 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RealEstatePay.Models;
+using System.Diagnostics;
 using Twilio;
 using Twilio.Rest.Api.V2010.Account;
 using Twilio.Types;
 
 namespace RealEstatePay.Controllers
 {
-    public class PayAcknowledgementController : Controller
+    public class PaymentSmsController : Controller
     {
         public IActionResult Login()
         {
@@ -66,8 +67,13 @@ namespace RealEstatePay.Controllers
             //HttpContext.Session.Clear(); // if using session
                                          // Or sign out if using authentication schemes
 
-            return RedirectToAction("Login", "PayAcknowledgement"); // Redirect to login page
+            return RedirectToAction("Login", "PaymentSms"); // Redirect to login page
         }
 
+        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
+        public IActionResult Error()
+        {
+            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+        }
     }
 }
