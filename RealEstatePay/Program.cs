@@ -1,11 +1,17 @@
+using RealEstatePay.Models;
+using RealEstatePay.Services.Interface;
+using RealEstatePay.Services.Implementation;
+using RealEstatePay.Middleware;
+
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 builder.Services.AddSession();
-builder.Services.Configure<RealEstatePay.Models.AppSettings>(builder.Configuration.GetSection("AppSettings"));
-builder.Services.AddHttpClient<RealEstatePay.Services.Interface.IHttpClientService, RealEstatePay.Services.Implementation.HttpClientService>();
-builder.Services.AddScoped<RealEstatePay.Services.Interface.IDateTimeService, RealEstatePay.Services.Implementation.DateTimeService>();
-builder.Services.AddScoped<RealEstatePay.Services.Interface.IPaymentSmsService, RealEstatePay.Services.Implementation.PaymentSmsService>();
+builder.Services.Configure<AppSettings>(builder.Configuration.GetSection("AppSettings"));
+builder.Services.AddHttpClient<IHttpClientService, HttpClientService>();
+builder.Services.AddScoped<IDateTimeService, DateTimeService>();
+builder.Services.AddScoped<IPaymentSmsService, PaymentSmsService>();
+builder.Services.AddSingleton<ILoggerService, LoggerService>();
 
 var app = builder.Build();
 
@@ -19,7 +25,7 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
-
+app.UseMiddleware<LoggingMiddleware>();
 app.UseSession();
 app.UseAuthorization();
 

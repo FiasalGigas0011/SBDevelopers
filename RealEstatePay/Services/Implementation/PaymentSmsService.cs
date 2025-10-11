@@ -29,7 +29,6 @@ namespace RealEstatePay.Services.Implementation
                 var message = BuildSmsMessage(model);
                 var requestBody = new { phoneNumber = model.ContactNumber, message };
                 var response = await _httpClientService.PostAsync(_appSettings.SmsApiUrl, requestBody);
-
                 return response.IsSuccessStatusCode;
             }
             catch
