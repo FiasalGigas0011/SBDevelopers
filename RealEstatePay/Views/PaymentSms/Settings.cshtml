@@ -1,0 +1,97 @@
+@model RealEstatePay.Models.AppSettings
+@{
+    ViewData["Title"] = "Settings";
+}
+
+<div class="settings-container">
+    <div class="contacts-header">
+        <h2>Application Settings</h2>
+        <a href="@Url.Action("Dashboard", "PaymentSms")" class="back-btn">← Back</a>
+    </div>
+
+    @if (ViewBag.Message != null)
+    {
+        <p class="message success">@ViewBag.Message</p>
+    }
+
+    @if (ViewBag.Error != null)
+    {
+        <p class="message error">@ViewBag.Error</p>
+    }
+
+    <form method="post" class="settings-form">
+        <label>Admin Username</label>
+        <input type="text" name="AdminUsername" value="@Model.AdminUsername" required />
+
+        <label>Admin Password</label>
+        <input type="password" name="AdminPassword" value="@Model.AdminPassword" required />
+
+        <label>SMS API URL</label>
+        <input type="url" name="SmsApiUrl" value="@Model.SmsApiUrl" required />
+
+        <label>Company Name</label>
+        <input type="text" name="CompanyName" value="@Model.CompanyName" required />
+
+        <label>Site/Layout Options</label>
+        <div class="site-options" id="siteOptions">
+            @if (Model.SiteLayoutOptions != null && Model.SiteLayoutOptions.Any())
+            {
+                @for (int i = 0; i < Model.SiteLayoutOptions.Count; i++)
+                {
+                    <div class="site-option">
+                        <input type="text" name="SiteLayoutOptions[@i]" value="@Model.SiteLayoutOptions[i]" />
+                        <button type="button" class="remove-btn" onclick="removeOption(this)">Remove</button>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="site-option">
+                    <input type="text" name="SiteLayoutOptions[0]" placeholder="Enter site/layout name" />
+                    <button type="button" class="remove-btn" onclick="removeOption(this)">Remove</button>
+                </div>
+            }
+        </div>
+        <button type="button" class="add-btn" onclick="addOption()">Add Option</button>
+
+        <label>Validation Error Message</label>
+        <input type="text" name="ValidationErrorMessage" value="@Model.ValidationErrorMessage" />
+
+        <label>SMS Success Message</label>
+        <input type="text" name="SmsSuccessMessage" value="@Model.SmsSuccessMessage" />
+
+        <label>SMS Failure Message</label>
+        <input type="text" name="SmsFailureMessage" value="@Model.SmsFailureMessage" />
+
+        <label>Login Error Message</label>
+        <input type="text" name="LoginErrorMessage" value="@Model.LoginErrorMessage" />
+
+        <button type="submit">Save Settings</button>
+    </form>
+</div>
+
+<script>
+function addOption() {
+    const container = document.getElementById('siteOptions');
+    const index = container.children.length;
+    const div = document.createElement('div');
+    div.className = 'site-option';
+    div.innerHTML = `
+        <input type="text" name="SiteLayoutOptions[${index}]" placeholder="Enter site/layout name" />
+        <button type="button" class="remove-btn" onclick="removeOption(this)">Remove</button>
+    `;
+    container.appendChild(div);
+}
+
+function removeOption(button) {
+    button.parentElement.remove();
+    updateIndices();
+}
+
+function updateIndices() {
+    const inputs = document.querySelectorAll('#siteOptions input');
+    inputs.forEach((input, index) => {
+        input.name = `SiteLayoutOptions[${index}]`;
+    });
+}
+</script>

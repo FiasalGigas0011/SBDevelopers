@@ -130,3 +130,111 @@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
     <link rel="s
+[2025-10-12 22:29:33] INFO: Request: GET / - Body: 
+[2025-10-12 22:29:35] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Login</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel="s
+[2025-10-12 22:29:41] INFO: Request: POST / - Body: username=admin&password=admin&__RequestVerificationToken=CfDJ8Fcl61LwAxtBhid422YSg5Nvvg1lvKKEGl9F7IX1DRcvDnIt2OxnOYjZcs9H3S_JWNMP-ck1GMfNMvjhW7Yqi0huMDNirc-ZYV-_v557HrumWHB9oRic2Qj2ZPa1sR-JosTRNtZTos4kIwQvKfkqqH0
+[2025-10-12 22:29:41] INFO: Response: Status: 302 - Body: 
+[2025-10-12 22:29:41] INFO: Request: GET /PaymentSms/Dashboard - Body: 
+[2025-10-12 22:29:42] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Dashboard</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link re
+[2025-10-12 22:29:44] INFO: Request: GET /PaymentSms/Settings - Body: 
+[2025-10-12 22:29:44] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Settings</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel
+[2025-10-12 22:33:50] INFO: Request: GET / - Body: 
+[2025-10-12 22:33:51] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Login</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel="s
+[2025-10-12 22:34:26] INFO: Request: POST / - Body: username=admin&password=admin&__RequestVerificationToken=CfDJ8Fcl61LwAxtBhid422YSg5Mub9qxBGdbt4t5uh8-_Is2rZj7ojSwQTixLgpQlYnR0Ev_712Shi_1sNRgw5fhnQd6dvk77R3CejLtm0kGOXVKvwFXmXsO3-ujh_mtYWCfBPgGpubY-mB4p4nrZIOUXBY
+[2025-10-12 22:34:26] INFO: Response: Status: 302 - Body: 
+[2025-10-12 22:34:26] INFO: Request: GET /PaymentSms/Dashboard - Body: 
+[2025-10-12 22:34:26] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Dashboard</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link re
+[2025-10-12 22:34:28] INFO: Request: GET /PaymentSms/Settings - Body: 
+[2025-10-12 22:34:28] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Settings</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel
+[2025-10-12 22:41:54] INFO: Request: GET / - Body: 
+[2025-10-12 22:41:56] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Login</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel="s
+[2025-10-12 22:42:04] INFO: Request: GET / - Body: 
+[2025-10-12 22:42:04] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Login</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel="s

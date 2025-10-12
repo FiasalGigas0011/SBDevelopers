@@ -229,11 +229,94 @@ form button:hover {
     text-decoration: none;
     font-size: 1.2rem;
     display: inline-block;
+    margin-right: 10px;
 }
 
 .three-dots-btn:hover {
     background-color: #b07d45;
     color: white;
+}
+
+.settings-btn {
+    background-color: #6c757d;
+    color: white;
+    padding: 8px 12px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    display: inline-block;
+}
+
+.settings-btn:hover {
+    background-color: #5a6268;
+    color: white;
+}
+
+.settings-container {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 30px 25px;
+    background: #1e1e1e;
+    border-radius: 12px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    color: white;
+}
+
+.settings-form input, .settings-form textarea {
+    width: 100%;
+    padding: 12px 15px;
+    margin-bottom: 15px;
+    font-size: 1rem;
+    border: 1px solid #444;
+    border-radius: 6px;
+    background: #2a2a2a;
+    color: white;
+}
+
+.settings-form label {
+    display: block;
+    margin-bottom: 5px;
+    color: #c49a6c;
+    font-weight: 600;
+}
+
+.site-options {
+    margin-bottom: 20px;
+}
+
+.site-option {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.site-option input {
+    width: 80%;
+    margin-right: 10px;
+    margin-bottom: 0;
+}
+
+.site-option .remove-btn {
+    width: 20%;
+}
+
+.remove-btn {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.add-btn {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-bottom: 20px;
 }
 
 form select {

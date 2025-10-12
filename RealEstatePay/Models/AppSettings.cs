@@ -4,6 +4,7 @@ namespace RealEstatePay.Models
     {
         public string AdminUsername { get; set; }
         public string AdminPassword { get; set; }
+        public string SuperAdminPassword { get; set; }
         public string SmsApiUrl { get; set; }
         public string CompanyName { get; set; }
         public string ValidationErrorMessage { get; set; }
