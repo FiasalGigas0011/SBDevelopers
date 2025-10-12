@@ -11,5 +11,6 @@ namespace RealEstatePay.Models
         public string SmsFailureMessage { get; set; }
         public string ApiErrorMessage { get; set; }
         public string LoginErrorMessage { get; set; }
+        public List<string> SiteLayoutOptions { get; set; } = new();
     }
 }

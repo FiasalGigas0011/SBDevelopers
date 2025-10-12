@@ -117,3 +117,16 @@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
     <link rel
+[2025-10-12 22:15:09] INFO: Request: GET / - Body: 
+[2025-10-12 22:15:10] INFO: Response: Status: 200 - Body: <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>SB Developers - Login</title>
+    <link rel="icon" type="image/png" href="/images/sbdevLogo.png" />
+
+    <!-- Bootstrap and site styles -->
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="/css/site.css?v=pAGv4ietcJNk_EwsQZ5BN9-K4MuNYS2a9wl4Jw-q9D0" />
+    <link rel="s

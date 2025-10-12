@@ -1,9 +1,8 @@
 ﻿@model RealEstatePay.Models.PaymentModel
+@inject Microsoft.Extensions.Options.IOptionsMonitor<RealEstatePay.Models.AppSettings> AppSettings
 @{
     ViewBag.Title = "Dashboard";
 }
-
-
 
 <div class="dashboard-container">
     <div class="logout-container">
@@ -21,11 +20,10 @@
     <input type="text" id="PlotNumber" name="PlotNumber" placeholder="Plot Number (Optional)" />
     <select id="SiteOrLayoutName" name="SiteOrLayoutName" required>
         <option value="">-- Select Site/Layout Name --</option>
-            <option value="Godhani">Godhani</option>
-            <option value="lonara">lonara</option>
-            <option value="Bailwada">Bailwada</option>
-            <option value="Bokhara and chakkikhapa">Bokhara and chakkikhapa</option>
-            <option value="Bhartwada">Bhartwada</option>
+        @foreach (var option in AppSettings.CurrentValue.SiteLayoutOptions)
+        {
+            <option value="@option">@option</option>
+        }
     </select>
     <input type="text" id="LayoutNumber" name="LayoutNumber" placeholder="Layout Number (Optional)" />
     <input type="text" id="ContactNumber" name="ContactNumber" placeholder="Contact Number" required />
