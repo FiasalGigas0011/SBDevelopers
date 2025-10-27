@@ -2,6 +2,7 @@
 {
     public class PaymentModel
     {
+        public int Id { get; set; }
         public string? PlotNumber { get; set; }
         public decimal AmountPaid { get; set; }
         public string ContactNumber { get; set; }
@@ -10,5 +11,6 @@
 
         public string? Message { get; set; }
         public string? CustomerName { get; set; }
+        public DateTime CreatedDate { get; set; }
     }
 }
